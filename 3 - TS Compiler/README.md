@@ -36,13 +36,23 @@ tsc -w
 ```
 ## Compiler options
 All options you can see by the link https://www.typescriptlang.org/docs/handbook/compiler-options.html
-### target
+### **target**
 Target is a version of JS in which TS will be compiled. To see all option press 'Ctrl'+'Space' in VS Code.
-### lib
+### **lib**
 By default contains values ["dom", "dom.iterable", "es6", "scripthost"].
+
 It has all libraries to this project. 
-### sourceMap
-sourceMap: true - simplifies debagging. It allows to see .ts files in sources of a browser.
-### noEmitOnErrors
+### **sourceMap**
+sourceMap: true - simplifies debagging. 
+
+It allows to see .ts files in sources of a browser.
+### **noEmitOnErrors**
 noEmitOnErrors = true - project, if there're files with errors, won't be compiled. 
+
 By default files with errors are compiled.
+### **Code Quality Options**
+"noUnusedLocals": true, "noUnusedParameters": true (function parameters), 
+
+"noImplicitReturns": true (if a function sometimes returns something, and sometimes not), 
+
+"noFallthroughCasesInSwitch": true - shows that you forgot to put `break` in switch-case.
