@@ -15,3 +15,26 @@ constructor(private field1: type, public field2: type) {}
 ```
 private readonly my_value: number;
 ```
+## Get and Set Methods
+Пишутся в следующем виде
+```
+get variableName() {}
+set variableName(properties) {}
+```
+## Singletons
+Создаются с помощью private constructor и static метода получения значения, хранящегося в static переменной класса.
+```
+class SingletoneClass {
+    private static instance: SingletoneClass;
+    private constructor(private name: string) {}
+
+    public static getInstance() {
+        if (SingletoneClass.instance) {
+            return SingletoneClass.instance;
+        } else {
+            SingletoneClass.instance = new SingletoneClass('test-name');
+            return SingletoneClass.instance;
+        }
+    }
+}
+```
