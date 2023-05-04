@@ -1,104 +1,67 @@
-abstract class Vehicle {
-    static steeringWheel = true;
-    protected vehicleType: string;
-    private carNumber: number;
+interface Profession {
+    name: string;
+    salary: number;
 
-    constructor(vType: string, cNumber: number) {
-        this.vehicleType = vType;
-        this.carNumber = cNumber;
+    raiseSalary(bonuses: number): void;
+}
+
+// custom type
+let teacher: Profession;
+teacher = {
+    name: 'teacher',
+    salary: 20300,
+    raiseSalary(bonuses: number) {
+        this.salary += bonuses;
+    }
+}
+teacher.raiseSalary(1000);
+console.log(`Teacher salary is ${teacher.salary}`);
+
+// implementation in class
+class Teacher implements Profession {
+    private age = 25;
+    constructor(public name: string, public salary: number) {}
+
+    raiseSalary(bonuses: number): void {
+        this.salary += bonuses;
     }
 
-    abstract printType(): void;
-
-    setNumber(n1: number) {
-        this.carNumber = this.calculateNumber(n1);
-    }
-
-    private calculateNumber(n: number) {
-        return n + 1;
-    }
-
-    getNumber() {
-        return this.carNumber;
-    }
-
-    static createVehicle(type: string, cNumber: number) {
-        return {type: type, cNumber: cNumber};
+    getAge() {
+        return this.age;
     }
 }
 
-// let my_vehicle = new Vehicle("bus", 2234);
-// my_vehicle.printType();
-// my_vehicle.setNumber(112);
-// console.log(my_vehicle.getNumber());
+let teacherClass: Profession; // but there won't be a method getAge
 
-// let new_vehicle = {vehicleType: 'bus2', printType: my_vehicle.printType};
-// new_vehicle.printType();
+teacherClass = new Teacher('teacher', 2010);
+teacherClass.raiseSalary(100);
+console.log(`TeacherClass salary is ${teacherClass.salary}`);
 
-class Car {
-    
-    constructor(private name: string, private readonly carNumber: number) {}
+// Interface inheritance
+interface Named {
+    readonly name: string;
+    lastname?: string;
+}
 
-    printCar() {
-        console.log(`This car is ${this.name} with number ${this.carNumber}`);
+interface Salaried extends Named { // extends Named, Salaried, Profession,...
+    salary: number;
+
+    raiseSalary(bonuses: number): void;
+}
+
+class Builder implements Salaried { // doesn't have lastname!
+    constructor(public name: string, public salary: number) {}
+
+    raiseSalary(bonuses: number) {
+        this.salary += bonuses;
     }
 }
 
-let my_car = new Car('ferrari', 2124);
-my_car.printCar();
-
-class Bike extends Vehicle {
-    constructor(vType: string, cNumber: number, private owner: string) {
-        super(vType, cNumber);
-    }
-
-    printOwner() {
-        console.log(`Owner is ${this.owner}`);
-    }
-
-    public get bikeOwner() {
-        return this.owner;
-    }
-
-    public set bikeOwner(name: string) {
-        this.owner = name;
-    }
-
-    // Overriding
-    printType() {
-        console.log(`Bike is ${this.vehicleType}`); // vehicleType is protected
-    }
+// Interface as a Function type
+interface MyFunc {
+    (par1: number, par2: number): number;
 }
+let func: MyFunc;
+func = (part1: number, part2: number) => {return part1 * part2};
 
-let my_bike = new Bike('bike', 22, 'Mike');
-my_bike.printOwner();
-my_bike.bikeOwner = 'Andrey';
-my_bike.printOwner();
-my_bike.printType();
-
-// Static fields
-console.log(Vehicle.createVehicle('truck', 1200));
-console.log(Vehicle.steeringWheel);
-
-class SingletoneClass {
-    private static instance: SingletoneClass;
-    private constructor(private name: string) {}
-
-    public static getInstance() {
-        if (SingletoneClass.instance) {
-            return SingletoneClass.instance;
-        } else {
-            SingletoneClass.instance = new SingletoneClass('test-name');
-            return SingletoneClass.instance;
-        }
-    }
-
-    public get nameValue() {
-        return this.name;
-    }
-}
-
-let firstVal = SingletoneClass.getInstance();
-let secondVal = SingletoneClass.getInstance();
-console.log(firstVal);
-console.log(secondVal);
+console.log("Function type is " + (func(2, 4)));
