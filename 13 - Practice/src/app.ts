@@ -4,7 +4,7 @@ import axios from 'axios';
 let form = document.querySelector("form")! as HTMLFormElement;
 let inputAddress = document.getElementById("address")! as HTMLInputElement;
 
-const YANDEX_API_KEY = '';
+const YANDEX_API_KEY = 'a300a83c-b108-442a-898e-5530f1d4eaf5';
 declare let ymaps: any;
 
 let myMap: any;
